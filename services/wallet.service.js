@@ -16,7 +16,7 @@ const transfer = async (req, res) => {
 
         const senderWallet = await Wallet.findOne({owner: walletFrom});
 
-        if (!senderWallet || senderWallet.balance <= amount) {
+        if (!senderWallet || senderWallet.balance < amount) {
             return res.status(400).send('Недостаточно средств или кошелек не найден');
         }
 
