@@ -52,12 +52,12 @@ const convert = async (req, res) => {
     try {
         const user = await User.findOne({token});
         if (!user) return res.status(401).send('Неверный токен');
-        const response = await axios.get('http://api.exchangeratesapi.io/latest', {
+        const {data} = await axios.get('http://api.exchangeratesapi.io/latest', {
             params: {
                 access_key: process.env.API_KEY,
             }
         });
-        const rates = response.data.rates;
+        const rates = data.rates;
         const result = {
             originalAmount: amount,
             RUB: Math.round(amount * rates.RUB),
