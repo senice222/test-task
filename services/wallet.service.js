@@ -4,19 +4,19 @@ const axios = require("axios");
 
 const transfer = async (req, res) => {
     const {walletFrom, recipient, amount} = req.body;
-    const token = req.headers.authorization.replace(/Bearer\s?/, "");
+    const userId = req.userId
 
-    if (!token || !walletFrom || !recipient || !amount) {
+    if (!userId || !walletFrom || !recipient || !amount) {
         return res.status(400).send('Все поля обязательны');
     }
 
     try {
-        const sender = await User.findOne({token});
-        if (!sender) return res.status(401).send('Неверный токен');
+        const sender = await User.findById(userId);
+        if (!sender) return res.status(401).send('Отправитель не найден');
 
         const senderWallet = await Wallet.findOne({owner: walletFrom});
 
-        if (!senderWallet || senderWallet.balance < amount) {
+        if (!senderWallet || senderWallet.balance <= amount) {
             return res.status(400).send('Недостаточно средств или кошелек не найден');
         }
 
