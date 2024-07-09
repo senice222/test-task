@@ -17,6 +17,6 @@ const WalletSchema = new mongoose.Schema({
     },
 });
 
-const Wallet = mongoose.model('Wallet', WalletSchema);
+const Wallet = mongoose.model('wallet_accounts', WalletSchema);
 
 module.exports = {Wallet};

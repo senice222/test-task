@@ -35,8 +35,7 @@ const register = async (req, res) => {
 
         const wallet = new Wallet({
             owner: user._id, // connect wallet to user id
-            balance: 0,
-            currency: 'USD' // default currency
+            balance: 0
         });
 
         await wallet.save();
