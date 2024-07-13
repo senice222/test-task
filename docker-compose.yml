@@ -1,12 +1,9 @@
 version: '3.8'
-
 services:
   app:
     build: .
     ports:
-      - "4000:4000"
+      - "3000:3000"
     environment:
-      - MONGO_URI=mongodb+srv://asdfqqqwsf12311:wCt4FPqwTYCBWK1h@test.mzaii9g.mongodb.net/?retryWrites=true&w=majority&appName=test
-
-volumes:
-  mongo-data:
+      NODE_ENV: production
+      MONGODB_URI: mongodb://username:password@hostname:port/database_name
