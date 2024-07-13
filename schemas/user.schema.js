@@ -12,7 +12,10 @@ const UserSchema = new mongoose.Schema({
     hashedPassword: {
         type: String,
         required: true
-    }
+    },
+    apiKey: { 
+        type: String
+     } 
 });
 
 const User = mongoose.model('User', UserSchema);

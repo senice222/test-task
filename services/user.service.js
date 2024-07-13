@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const {Wallet} = require("../schemas/wallet.schema");
 const { User } = require('../schemas/user.schema');
+const generateApiKey = require('../utils/generateApiKey');
 require('dotenv').config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -31,8 +32,14 @@ const register = async (req, res) => {
         );
 
         newUser.token = token;
+
         const user = await newUser.save();
 
+        const hashedApiKey = await generateApiKey(user);
+        user.apiKey = hashedApiKey; 
+
+        await user.save();
+        
         const wallet = new Wallet({
             owner: user._id, // connect wallet to user id
             balance: 0

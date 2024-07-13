@@ -9,6 +9,7 @@ const startServer = () => {
 
     app.listen(4000, () => {
         console.log('Server OK');
+        console.log(`worker pid=${process.pid}`)
     });
 
     app.use('/internal', WalletRoute);
